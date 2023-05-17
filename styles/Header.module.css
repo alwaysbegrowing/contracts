@@ -1,0 +1,45 @@
+.headerContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  display: flex;
+  height: 64px;
+  align-items: center;
+}
+
+.logo img {
+  height: 40px;
+  width: 40px;
+  margin-right: 0.5rem;
+}
+
+.logo span {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.tagline {
+  font-size: 1rem;
+  color: #888;
+  margin-left: 1rem;
+}
+
+.connectWallet {
+  display: flex;
+  align-items: center;
+  background-color: #1890ff;
+  color: #ffffff;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.connectWallet:hover {
+  background-color: #096dd9;
+}

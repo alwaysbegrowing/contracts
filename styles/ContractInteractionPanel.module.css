@@ -1,0 +1,58 @@
+.contractInteractionPanel {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+}
+
+.readWriteFunctions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.functionContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  background-color: #ffffff;
+  border-radius: 4px;
+}
+
+.functionTitle {
+  font-weight: bold;
+}
+
+.inputFields {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.inputField {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.inputLabel {
+  font-weight: bold;
+}
+
+.submitButton {
+  align-self: flex-end;
+  background-color: #1890ff;
+  color: #ffffff;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.submitButton:hover {
+  background-color: #096dd9;
+}

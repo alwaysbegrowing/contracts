@@ -1,0 +1,25 @@
+.analyticsInsightsPanel {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: #f0f2f5;
+  border-radius: 4px;
+}
+
+.analyticsInsightsPanel h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.analyticsInsightsPanel .metric {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.analyticsInsightsPanel .metric span {
+  font-size: 1.2rem;
+  font-weight: 500;
+}

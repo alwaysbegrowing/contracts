@@ -1,0 +1,59 @@
+.contractInformationPanel {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: #f0f2f5;
+  border-radius: 4px;
+}
+
+.contractInformationPanel h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.contractInformationPanel .contractDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.contractInformationPanel .contractDetails .detail {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1rem;
+}
+
+.contractInformationPanel .contractDetails .detail span {
+  font-weight: bold;
+}
+
+.contractInformationPanel .verificationStatus {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.contractInformationPanel .verificationStatus svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.contractInformationPanel .ownershipHistory {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.contractInformationPanel .ownershipHistory h3 {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.contractInformationPanel .ownershipHistory .historyItem {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1rem;
+}

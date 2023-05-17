@@ -1,0 +1,42 @@
+.settingsPanel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #f0f2f5;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.settingsPanelTitle {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.settingsPanelContent {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.settingsPanelItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.settingsPanelItem:last-child {
+  border-bottom: none;
+}
+
+.settingsPanelLabel {
+  font-size: 16px;
+}
+
+.settingsPanelControl {
+  display: flex;
+  align-items: center;
+}
