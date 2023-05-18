@@ -10,6 +10,7 @@ import { Alert, Col, Collapse, Row, Space, Typography } from "antd";
 import { chainIds } from "./chainIds";
 import ErinTweet from "./ErinTweet";
 import { usePublicClient } from "wagmi";
+import { normalize } from "viem/ens";
 
 const { Panel } = Collapse;
 const { Text, Paragraph } = Typography;
@@ -17,7 +18,6 @@ const { Text, Paragraph } = Typography;
 export default function ContractsDisplay() {
   const [texts, setTexts] = useState<string[]>();
   const [error, setError] = useState<string>();
-  const [resolver, setResolver] = useState<string>();
   const [searchValue] = useRecoilState(searchTermState);
   const [nameHash, setNameHash] = useState<string>();
   const { getEnsResolver } = usePublicClient();
@@ -26,7 +26,6 @@ export default function ContractsDisplay() {
     if (!searchValue) return;
     const fetchEnsText = async () => {
       const address = namehash(searchValue);
-      setResolver(await getEnsResolver({ name: searchValue }));
       setNameHash(address);
       const response = await fetch(`/api/ens`, {
         method: "POST",
@@ -48,7 +47,7 @@ export default function ContractsDisplay() {
   return (
     <div style={{ minHeight: 500 }}>
       {texts && (
-        <Row gutter={[16, 16]} align="bottom"> 
+        <Row gutter={[16, 16]} align="bottom">
           <Col xs={12} md={24} lg={24} xl={7}>
             <ContractInformationPanel />
           </Col>
@@ -124,11 +123,22 @@ export default function ContractsDisplay() {
                     <ErinTweet />
                     <Text>
                       For the first record, {texts[0]}, we can look up the text
-                      with the ENS resolver contract for Uniswap{" "}
-                      <Text code>{resolver}</Text>.{" "}
-                      <a href={`https://etherscan.io/address/${resolver}`}>
-                        View on Etherscan.
-                      </a>
+                      with the ENS Universal Resolver.{" "}
+                      <Text code>
+                        0xe4acdd618deed4e6d2f03b9bf62dc6118fc9a4da
+                      </Text>
+                      .{" "}
+                      <Space>
+                        <a href="https://viem.sh/docs/ens/actions/getEnsText.html">
+                          get ENS Text docs
+                        </a>
+                        •
+                        <a
+                          href={`https://etherscan.io/address/0xe4acdd618deed4e6d2f03b9bf62dc6118fc9a4da`}
+                        >
+                          View on Etherscan.
+                        </a>
+                      </Space>
                     </Text>
                     <Paragraph>
                       <pre>
@@ -136,7 +146,7 @@ export default function ContractsDisplay() {
                         0xa1cbcbaf0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000001b0d76336465706c6f796d656e747307756e697377617003657468000000000000`}
                       </pre>
                     </Paragraph>
-                    Which gives us the two addresses. 
+                    Which gives us the two addresses.
                     <SplitContract chainKey={texts[0]} />
                     And finally, the result:
                   </Space>

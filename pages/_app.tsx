@@ -7,6 +7,7 @@ import CustomLayout from "../components/Layout";
 import React from "react";
 import { RecoilRoot } from "recoil";
 import Head from "next/head";
+import Meta from "../components/Meta";
 
 const config = createConfig({
   autoConnect: true,
@@ -26,6 +27,8 @@ function MyApp({ Component, pageProps }: { Component: any; pageProps: any }) {
           />
           <title>dAppling Tools</title>
         </Head>
+        <Meta />
+
         <CustomLayout>
           <Component {...pageProps} />
         </CustomLayout>
