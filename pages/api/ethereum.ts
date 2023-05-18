@@ -1,13 +1,12 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
-const ALCHEMY_API_KEY = "fieltHTgL7ziK_257vD8V92R5qwsD19B";
 
 const ethereumHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "POST") {
     const { method, params } = JSON.parse(req.body);
     try {
       const response = await fetch(
-        `https://eth-mainnet.alchemyapi.io/v2/${ALCHEMY_API_KEY}`,
+        `https://eth-mainnet.alchemyapi.io/v2/${process.env.ALCHEMY_API_KEY}`,
         {
           method: "POST",
           headers: {

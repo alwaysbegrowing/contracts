@@ -6,29 +6,20 @@ const { Footer } = Layout;
 
 const AppFooter = () => {
   return (
-    <Footer className={styles.footer}>
-      <div className={styles.links}>
-        <a href="/documentation" target="_blank" rel="noopener noreferrer">
-          Documentation
-        </a>
-        <a href="/terms-of-service" target="_blank" rel="noopener noreferrer">
-          Terms of Service
-        </a>
-        <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">
-          Privacy Policy
-        </a>
-      </div>
-      <div className={styles.social}>
-        <a href="https://twitter.com/dappling" target="_blank" rel="noopener noreferrer">
-          Twitter
-        </a>
-        <a href="https://github.com/dappling" target="_blank" rel="noopener noreferrer">
-          GitHub
-        </a>
-        <a href="https://discord.gg/dappling" target="_blank" rel="noopener noreferrer">
-          Discord
-        </a>
-      </div>
+    <Footer
+      style={{
+        backgroundColor: "#F7F9FF",
+        textAlign: "center",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        bottom: 0,
+        width: "100%",
+      }}
+    >
+      <span>
+        Hosted on <a href="https://dappling.network">dAppling</a>
+      </span>
     </Footer>
   );
 };

@@ -16,7 +16,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method === "POST") {
-    const { address } = req.body;
+    const { address } = JSON.parse(req.body);
     try {
       const response = await fetch(
         "https://api.thegraph.com/subgraphs/name/ensdomains/ens",
@@ -41,7 +41,7 @@ export default async function handler(
 }
 `,
             variables: {
-              id: "0x0b9638d2c5bd4528d603562a1fa1e734fe1b88e680f448d779531e9bc2b55f12",
+              id: address,
             },
             operationName: "getRecords",
           }),

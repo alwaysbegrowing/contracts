@@ -1,38 +1,42 @@
 import React, { useEffect, useState } from "react";
-import { List, Card, Button, Space } from "antd";
+import { Card, Button, Space, Select } from "antd";
 import styles from "../styles/ContractsPanel.module.css";
 import { usePublicClient } from "wagmi";
 import { normalize } from "viem/ens";
 import { useRecoilState } from "recoil";
 import { contractState, searchTermState } from "./Atoms";
+import { chainIds } from "./chainIds";
 
-const SplitContract = ({ textKey }: { textKey: string }) => {
+const { Option } = Select;
+
+const SplitContract = ({ chainKey }: { chainKey: string }) => {
   const { getEnsText } = usePublicClient();
   const [contracts, setContracts] = useState<string[]>();
   const [searchTerm] = useRecoilState(searchTermState);
   useEffect(() => {
     const fetchEnsText = async () => {
-      const contractAddress = await getEnsText({
-        name: normalize(searchTerm),
-        key: textKey,
-      });
-      if (!contractAddress) return;
-      setContracts(contractAddress?.split(", "));
+      if (!searchTerm) return;
+      try {
+        const contractAddress = await getEnsText({
+          name: normalize(searchTerm),
+          key: chainKey,
+        });
+        if (!contractAddress) return;
+        setContracts(contractAddress?.split(", "));
+      } catch (e) {
+        console.log(e);
+      }
     };
     fetchEnsText();
-  }, [getEnsText, searchTerm, textKey]);
+  }, [getEnsText, searchTerm, chainKey]);
 
   if (!contracts) return null;
   return (
-    <List.Item>
-      <Card title={textKey}>
-        <Space direction="vertical">
-          {contracts?.map((contract) => (
-            <Contract key={contract} address={contract} />
-          ))}
-        </Space>
-      </Card>
-    </List.Item>
+    <Space direction="vertical">
+      {contracts?.map((contract) => (
+        <Contract key={contract} address={contract} />
+      ))}
+    </Space>
   );
 };
 
@@ -42,14 +46,38 @@ const Contract = ({ address }: { address: string }) => {
   return <Button onClick={() => setContract(address)}>{address}</Button>;
 };
 
-const ContractsPanel = ({ texts }: { texts: any }) => {
+const ContractsPanel = ({ chains }: { chains: any }) => {
+  const [selectedChain, setSelectedChain] = useState<string>(chains?.[0]);
+
+  const handleChainChange = (value: string) => {
+    setSelectedChain(value);
+  };
+
   return (
     <div id="contracts-panel" className={styles.contractsPanel}>
-      <List
-        grid={{ gutter: 16, column: 3 }}
-        dataSource={texts}
-        renderItem={(text: string) => <SplitContract textKey={text} />}
-      />
+      <Space direction="vertical">
+        <Select
+          defaultValue={selectedChain}
+          onChange={handleChainChange}
+          style={{ width: "100%" }}
+        >
+          {chains?.map((chain: string) => (
+            <Option key={chain} value={chain}>
+              <Space>
+                <img
+                  width={16}
+                  alt="chain"
+                  src={`https://icons.llamao.fi/icons/chains/rsz_${chainIds[chain]}.jpg`}
+                />
+                {chainIds[chain]}
+              </Space>
+            </Option>
+          ))}
+        </Select>
+        <Card title={chainIds[selectedChain]}>
+          <SplitContract chainKey={selectedChain} />
+        </Card>
+      </Space>
     </div>
   );
 };
