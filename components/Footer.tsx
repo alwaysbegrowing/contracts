@@ -1,4 +1,4 @@
-import { Layout, Button } from "antd";
+import { Layout } from "antd";
 
 const { Footer } = Layout;
 

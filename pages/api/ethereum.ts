@@ -1,6 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
-
 const ethereumHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "POST") {
     const { method, params } = JSON.parse(req.body);
@@ -22,8 +21,8 @@ const ethereumHandler = async (req: NextApiRequest, res: NextApiResponse) => {
         }
       ).then((response) => response.json());
       res.status(200).json(response);
-    } catch (error) {
-      console.log(error);
+    } catch (e) {
+      console.log(e);
       res
         .status(500)
         .json({ error: "Error fetching data from Ethereum network" });

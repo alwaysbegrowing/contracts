@@ -1,18 +1,10 @@
-import { ReactNode, useState } from "react";
-import { Layout, Space, Grid, Button, Menu } from "antd";
+import { ReactNode } from "react";
+import { Layout, Space, Grid, Button } from "antd";
 import Link from "next/link";
 import CustomFooter from "./Footer";
 import { CSSProperties } from "react";
 import { GithubOutlined } from "@ant-design/icons";
-import type { MenuProps } from "antd";
-import { useRouter } from "next/router";
-import Image from "next/image";
-import {
-  AppstoreOutlined,
-  MailOutlined,
-  SettingOutlined,
-  TwitterOutlined,
-} from "@ant-design/icons";
+import { TwitterOutlined } from "@ant-design/icons";
 
 const { Header, Content } = Layout;
 const { useBreakpoint } = Grid;

@@ -1,15 +1,4 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { getAddress, resolveAddress } from "ethers";
-
-const mockData = {
-  resolver: {
-    texts: ["10", "2940", "3019", "930"],
-    contracts: [
-      "0x2e2a42fbe7c7e2ffc031baf7442dbe1f8957770a",
-      "0xc13eDA6bFF669b3858650bc34Dd8802eF93D31E9",
-    ],
-  },
-};
 
 export default async function handler(
   req: NextApiRequest,
@@ -25,18 +14,9 @@ export default async function handler(
           body: JSON.stringify({
             query: `query getRecords($id: String!) {
   domain(id: $id) {
-    name
-    isMigrated
-    createdAt
     resolver {
       texts
-      coinTypes
-      contentHash
-      addr {
-        id
-      }
     }
-    id
   }
 }
 `,

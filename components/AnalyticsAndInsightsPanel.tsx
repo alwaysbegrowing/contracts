@@ -8,7 +8,7 @@ const { Title } = Typography;
 
 const AnalyticsAndInsightsPanel = () => {
   const [contract] = useRecoilState(contractState);
-  if (!contract) return null;
+  if (!contract.name) return null;
   const transactionVolume = "-";
   const tokenHoldings = "-";
 
@@ -23,7 +23,6 @@ const AnalyticsAndInsightsPanel = () => {
         <span>Token Holdings:</span>
         <span>{tokenHoldings}</span>
       </div>
-      {/* Add more analytics and insights data as needed */}
     </Card>
   );
 };

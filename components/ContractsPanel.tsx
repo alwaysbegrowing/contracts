@@ -9,8 +9,9 @@ import { chainIds } from "./chainIds";
 
 const { Option } = Select;
 
-const SplitContract = ({ chainKey }: { chainKey: string }) => {
+export const SplitContract = ({ chainKey }: { chainKey: string }) => {
   const { getEnsText } = usePublicClient();
+
   const [contracts, setContracts] = useState<string[]>();
   const [searchTerm] = useRecoilState(searchTermState);
   useEffect(() => {
@@ -34,21 +35,24 @@ const SplitContract = ({ chainKey }: { chainKey: string }) => {
   return (
     <Space direction="vertical">
       {contracts?.map((contract) => (
-        <Contract key={contract} address={contract} />
+        <Contract key={contract} chain={chainKey} address={contract} />
       ))}
     </Space>
   );
 };
 
-const Contract = ({ address }: { address: string }) => {
+const Contract = ({ address, chain }: { address: string; chain: string }) => {
   const [, setContract] = useRecoilState(contractState);
 
-  return <Button onClick={() => setContract(address)}>{address}</Button>;
+  return (
+    <Button onClick={() => setContract((c) => ({ chain, name: address }))}>
+      {address}
+    </Button>
+  );
 };
 
 const ContractsPanel = ({ chains }: { chains: any }) => {
   const [selectedChain, setSelectedChain] = useState<string>(chains?.[0]);
-
   const handleChainChange = (value: string) => {
     setSelectedChain(value);
   };

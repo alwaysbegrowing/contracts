@@ -2,21 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Card } from "antd";
 import { useRecoilState } from "recoil";
 import { contractState } from "./Atoms";
+import { chainIds } from "./chainIds";
+import { explorers } from "./explorers";
 
-type ContractInformationPanelProps = {
-  contract: {
-    address?: string;
-    ABI?: string;
-    network?: string;
-    ownershipHistory?: string[];
-    verificationStatus?: boolean;
-  };
-};
 const ContractInformationPanel = () => {
   const [contract] = useRecoilState(contractState);
   const [contractTransactionCount, setContractTransactionCount] = useState();
   useEffect(() => {
-    if (!contract) return;
+    if (contract?.name === "") return;
     const fetchContract = async () => {
       const response = await fetch("/api/ethereum", {
         method: "POST",
@@ -30,11 +23,14 @@ const ContractInformationPanel = () => {
     };
     fetchContract();
   }, [contract]);
-  if (!contract) return null;
+  if (contract?.name === "") return null;
+  const explorer = explorers.find(
+    ({ chainId }) => chainId === parseInt(contract.chain)
+  );
   return (
     <Card title="Contract Information" id="contract-information-panel">
       <p>
-        <strong>Contract Address:</strong> {contract}
+        <strong>Contract Address:</strong> {contract?.name}
       </p>
       {contractTransactionCount && (
         <p>
@@ -43,7 +39,15 @@ const ContractInformationPanel = () => {
         </p>
       )}
       <p>
-        <strong>Mainnet</strong>
+        <strong>{chainIds[contract.chain]}</strong>
+      </p>
+
+      <p>
+        <strong>
+          <a href={`${explorer?.baseUrl}/address/${contract?.name}`}>
+            View on {explorer?.explorerName}
+          </a>
+        </strong>
       </p>
     </Card>
   );

@@ -1,12 +1,17 @@
 import React, { useState } from "react";
 import { Input, Button, Space, Divider } from "antd";
+import { useRecoilState, useResetRecoilState } from "recoil";
+import { contractState, searchTermState } from "./Atoms";
 
-const SearchBar = ({ onSearch }: { onSearch: any }) => {
-  const [searchValue, setSearchValue] = useState("v3deployments.uniswap.eth");
-  const handleSearch = () => {
-    if (searchValue) {
-      onSearch(searchValue);
-    }
+const SearchBar = () => {
+  const [localSearchValue, setLocalSearchValue] = useState(
+    "v3deployments.uniswap.eth"
+  );
+  const [, setSearchValue] = useRecoilState(searchTermState);
+  const resetContract = useResetRecoilState(contractState);
+  const handleSearch = async () => {
+    setSearchValue(localSearchValue);
+    resetContract()
   };
 
   return (
@@ -16,8 +21,8 @@ const SearchBar = ({ onSearch }: { onSearch: any }) => {
           style={{ width: "460px" }}
           id="search-bar"
           placeholder="Enter ENS name"
-          value={searchValue}
-          onChange={(e) => setSearchValue(e.target.value)}
+          value={localSearchValue}
+          onChange={(e) => setLocalSearchValue(e.target.value)}
           onPressEnter={handleSearch}
         />
         <Button type="primary" onClick={handleSearch}>
