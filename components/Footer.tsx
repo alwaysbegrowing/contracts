@@ -1,10 +1,8 @@
-import React from 'react';
-import { Layout } from 'antd';
-import styles from '../styles/Footer.module.css';
+import { Layout, Button } from "antd";
 
 const { Footer } = Layout;
 
-const AppFooter = () => {
+export default function CustomFooter() {
   return (
     <Footer
       style={{
@@ -22,6 +20,4 @@ const AppFooter = () => {
       </span>
     </Footer>
   );
-};
-
-export default AppFooter;
+}

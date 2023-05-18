@@ -5,7 +5,7 @@ import "@rainbow-me/rainbowkit/styles.css";
 import { createConfig, WagmiConfig } from "wagmi";
 import { mainnet } from "wagmi/chains";
 import { createPublicClient, http } from "viem";
-import Header from "../components/Header";
+import CustomLayout from "../components/Layout";
 import React from "react";
 import { RecoilRoot } from "recoil";
 
@@ -21,13 +21,9 @@ function MyApp({ Component, pageProps }: { Component: any; pageProps: any }) {
   return (
     <RecoilRoot>
       <WagmiConfig config={config}>
-        <Layout>
-          <Header />
-          <Content>
-            <Component {...pageProps} />
-          </Content>
-          <Footer />
-        </Layout>
+        <CustomLayout>
+          <Component {...pageProps} />
+        </CustomLayout>
       </WagmiConfig>
     </RecoilRoot>
   );

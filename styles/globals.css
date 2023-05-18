@@ -14,22 +14,22 @@ a {
   box-sizing: border-box;
 }
 
-.ant-layout {
+/* .ant-layout {
   min-height: 100vh;
-}
+} */
 
-.ant-layout-header {
+/* .ant-layout-header {
   background: #fff;
   box-shadow: 0 2px 8px #f0f1f2;
-}
+} */
 
-.ant-layout-content {
+/* .ant-layout-content {
   padding: 24px;
   background: #f0f2f5;
-}
-
+} */
+/* 
 .ant-layout-footer {
   text-align: center;
   background: #fff;
   padding: 24px 0;
-}
+} */
