@@ -1,14 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Button, Card, Typography } from "antd";
-import { useRecoilState } from "recoil";
-import { contractState } from "./Atoms";
+
+import { GlobalContext } from "../pages/_app";
 
 const { Text } = Typography;
 
 const ContractInteractionPanel = () => {
-  const [contract] = useRecoilState(contractState);
-  if (contract?.name === "") return null;
-  if (!["100", "137", "10", "42161"].includes(contract?.chain)) return null;
+  const { contractState } = useContext(GlobalContext);
+  if (contractState?.name === "") return null;
+  if (!["100", "137", "10", "42161"].includes(contractState?.chain))
+    return null;
   const chainMapping: { [key: string]: string } = {
     "100": "gnosisChain",
     "137": "polygon",
@@ -22,8 +23,8 @@ const ContractInteractionPanel = () => {
     >
       <Button
         type="ghost"
-        href={`https://abi.ninja/${contract.name}/${
-          chainMapping[contract.chain]
+        href={`https://abi.ninja/${contractState.name}/${
+          chainMapping[contractState.chain]
         }`}
       >
         <Text>Interact with this contract on ABI.Ninja</Text>

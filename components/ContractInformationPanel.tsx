@@ -1,36 +1,35 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Card } from "antd";
-import { useRecoilState } from "recoil";
-import { contractState } from "./Atoms";
 import { chainIds } from "./chainIds";
 import { explorers } from "./explorers";
+import { GlobalContext } from "../pages/_app";
 
 const ContractInformationPanel = () => {
-  const [contract] = useRecoilState(contractState);
+  const { contractState } = useContext(GlobalContext);
   const [contractTransactionCount, setContractTransactionCount] = useState();
   useEffect(() => {
-    if (contract?.name === "") return;
+    if (contractState?.name === "") return;
     const fetchContract = async () => {
       const response = await fetch("/api/ethereum", {
         method: "POST",
         body: JSON.stringify({
           method: "eth_getTransactionCount",
-          params: [contract, "latest"],
+          params: [contractState, "latest"],
         }),
       });
       const json = await response.json();
       setContractTransactionCount(json?.result);
     };
     fetchContract();
-  }, [contract]);
-  if (contract?.name === "") return null;
+  }, [contractState]);
+  if (contractState?.name === "") return null;
   const explorer = explorers.find(
-    ({ chainId }) => chainId === parseInt(contract.chain)
+    ({ chainId }) => chainId === parseInt(contractState.chain)
   );
   return (
     <Card title="Contract Information" id="contract-information-panel">
       <p>
-        <strong>Contract Address:</strong> {contract?.name}
+        <strong>Contract Address:</strong> {contractState?.name}
       </p>
       {contractTransactionCount && (
         <p>
@@ -39,12 +38,12 @@ const ContractInformationPanel = () => {
         </p>
       )}
       <p>
-        <strong>{chainIds[contract.chain]}</strong>
+        <strong>{chainIds[contractState.chain]}</strong>
       </p>
 
       <p>
         <strong>
-          <a href={`${explorer?.baseUrl}/address/${contract?.name}`}>
+          <a href={`${explorer?.baseUrl}/address/${contractState?.name}`}>
             View on {explorer?.explorerName}
           </a>
         </strong>
