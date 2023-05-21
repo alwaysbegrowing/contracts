@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Card, Button, Space, Select } from "antd";
 import styles from "../styles/ContractsPanel.module.css";
 import { usePublicClient } from "wagmi";
 import { normalize } from "viem/ens";
-import { useRecoilState } from "recoil";
-import { contractState, searchTermState } from "./Atoms";
 import { chainIds } from "./chainIds";
+import { GlobalContext } from "../pages/_app";
 
 const { Option } = Select;
 
@@ -13,7 +12,7 @@ export const SplitContract = ({ chainKey }: { chainKey: string }) => {
   const { getEnsText } = usePublicClient();
 
   const [contracts, setContracts] = useState<string[]>();
-  const [searchTerm] = useRecoilState(searchTermState);
+  const { searchTerm } = useContext(GlobalContext);
   useEffect(() => {
     const fetchEnsText = async () => {
       if (!searchTerm) return;
@@ -42,10 +41,10 @@ export const SplitContract = ({ chainKey }: { chainKey: string }) => {
 };
 
 const Contract = ({ address, chain }: { address: string; chain: string }) => {
-  const [, setContract] = useRecoilState(contractState);
+  const { setContractState } = useContext(GlobalContext);
 
   return (
-    <Button onClick={() => setContract((c) => ({ chain, name: address }))}>
+    <Button onClick={() => setContractState(() => ({ chain, name: address }))}>
       {address}
     </Button>
   );

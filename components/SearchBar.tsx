@@ -1,17 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Input, Button, Space, Divider } from "antd";
-import { useRecoilState, useResetRecoilState } from "recoil";
-import { contractState, searchTermState } from "./Atoms";
+import { GlobalContext } from "../pages/_app";
 
 const SearchBar = () => {
   const [localSearchValue, setLocalSearchValue] = useState(
     "v3deployments.uniswap.eth"
   );
-  const [, setSearchValue] = useRecoilState(searchTermState);
-  const resetContract = useResetRecoilState(contractState);
+  const { setContractState, setSearchTermState } = useContext(GlobalContext);
+
   const handleSearch = async () => {
-    setSearchValue(localSearchValue);
-    resetContract()
+    setSearchTermState(localSearchValue);
+    setContractState({ name: "", chain: "" });
   };
 
   return (

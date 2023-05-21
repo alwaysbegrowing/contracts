@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import ContractsPanel, { SplitContract } from "../components/ContractsPanel";
 import ContractInformationPanel from "../components/ContractInformationPanel";
 import ContractInteractionPanel from "../components/ContractInteractionPanel";
 import AnalyticsAndInsightsPanel from "../components/AnalyticsAndInsightsPanel";
 import { namehash } from "viem";
-import { useRecoilState } from "recoil";
-import { searchTermState } from "../components/Atoms";
 import { Alert, Col, Collapse, Row, Space, Typography } from "antd";
 import { chainIds } from "./chainIds";
 import ErinTweet from "./ErinTweet";
+import { GlobalContext } from "../pages/_app";
 import { usePublicClient } from "wagmi";
 import { normalize } from "viem/ens";
 
@@ -18,14 +17,14 @@ const { Text, Paragraph } = Typography;
 export default function ContractsDisplay() {
   const [texts, setTexts] = useState<string[]>();
   const [error, setError] = useState<string>();
-  const [searchValue] = useRecoilState(searchTermState);
+  const { searchTerm } = useContext(GlobalContext);
   const [nameHash, setNameHash] = useState<string>();
   const { getEnsResolver } = usePublicClient();
 
   useEffect(() => {
-    if (!searchValue) return;
+    if (!searchTerm) return;
     const fetchEnsText = async () => {
-      const address = namehash(searchValue);
+      const address = namehash(searchTerm);
       setNameHash(address);
       const response = await fetch(`/api/ens`, {
         method: "POST",
@@ -43,7 +42,7 @@ export default function ContractsDisplay() {
       }
     };
     fetchEnsText();
-  }, [searchValue, getEnsResolver]);
+  }, [searchTerm, getEnsResolver]);
   return (
     <div style={{ minHeight: 500 }}>
       {texts && (
@@ -57,7 +56,7 @@ export default function ContractsDisplay() {
                 <Panel key="wah" header="First, get the address to lookup">
                   <Space direction="vertical">
                     <Text>
-                      This takes the ENS domain {searchValue} and converts it to
+                      This takes the ENS domain {searchTerm} and converts it to
                       an address.
                     </Text>
                     <Text code>{nameHash}</Text>
@@ -93,7 +92,7 @@ export default function ContractsDisplay() {
                     <Paragraph>
                       <pre>
                         {`{
-  "id": "${namehash(searchValue)}"
+  "id": "${namehash(searchTerm)}"
 }`}
                       </pre>
                     </Paragraph>
@@ -171,8 +170,8 @@ export default function ContractsDisplay() {
               description={
                 <Space direction="vertical">
                   {error}
-                  <a href={`https://app.ens.domains/${searchValue}`}>
-                    View {searchValue} on ENS
+                  <a href={`https://app.ens.domains/${searchTerm}`}>
+                    View {searchTerm} on ENS
                   </a>
                 </Space>
               }

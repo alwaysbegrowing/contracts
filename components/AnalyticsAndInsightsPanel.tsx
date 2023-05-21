@@ -1,14 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Card, Typography } from "antd";
 import styles from "../styles/AnalyticsAndInsightsPanel.module.css";
-import { contractState } from "./Atoms";
-import { useRecoilState } from "recoil";
+import { GlobalContext } from "../pages/_app";
 
 const { Title } = Typography;
 
 const AnalyticsAndInsightsPanel = () => {
-  const [contract] = useRecoilState(contractState);
-  if (!contract.name) return null;
+  const { contractState } = useContext(GlobalContext);
+  if (!contractState.name) return null;
   const transactionVolume = "-";
   const tokenHoldings = "-";
 
