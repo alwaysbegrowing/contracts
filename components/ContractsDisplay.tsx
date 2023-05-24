@@ -10,10 +10,10 @@ import { Alert, Col, Collapse, Row, Space, Typography } from "antd";
 import { chainIds } from "./chainIds";
 import ErinTweet from "./ErinTweet";
 import { usePublicClient } from "wagmi";
-import { normalize } from "viem/ens";
+import { getRecordsForHash } from "../client/api/ens";
 
 const { Panel } = Collapse;
-const { Text, Paragraph } = Typography;
+const { Text, Paragraph, Title } = Typography;
 
 export default function ContractsDisplay() {
   const [texts, setTexts] = useState<string[]>();
@@ -25,21 +25,12 @@ export default function ContractsDisplay() {
   useEffect(() => {
     if (!searchValue) return;
     const fetchEnsText = async () => {
-      const address = namehash(searchValue);
-      setNameHash(address);
-      const response = await fetch(`/api/ens`, {
-        method: "POST",
-        body: JSON.stringify({ address }),
-      });
-      if (response.ok) {
-        const texts = (await response.json())?.texts;
-        if (texts) {
-          setTexts(texts);
-          setError(undefined);
-        }
-      } else {
-        setTexts(undefined);
-        setError("No records found for this ENS name.");
+      const hash = namehash(searchValue);
+      setNameHash(hash);
+      const records = await getRecordsForHash(hash);
+      if (records) {
+        setTexts(records.texts);
+        setError(undefined);
       }
     };
     fetchEnsText();
@@ -53,12 +44,14 @@ export default function ContractsDisplay() {
           </Col>
           <Col xs={24} md={24} lg={24} xl={10}>
             <Space direction="vertical" style={{ width: "100%" }}>
+              <Title level={3}>Interested how this works?</Title>
               <Collapse>
-                <Panel key="wah" header="First, get the address to lookup">
+                <Panel key="wah" header="First, get the address (hash) to lookup">
                   <Space direction="vertical">
                     <Text>
                       This takes the ENS domain {searchValue} and converts it to
-                      an address.
+                      a hash which is more convenient to use in a smart
+                      contract.
                     </Text>
                     <Text code>{nameHash}</Text>
                   </Space>
@@ -148,10 +141,12 @@ export default function ContractsDisplay() {
                     </Paragraph>
                     Which gives us the two addresses.
                     <SplitContract chainKey={texts[0]} />
-                    And finally, the result:
                   </Space>
                 </Panel>
               </Collapse>
+              <Title level={3}>
+                Final result - select a chain and contract
+              </Title>
               <ContractsPanel chains={texts} />
             </Space>
           </Col>
