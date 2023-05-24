@@ -44,7 +44,7 @@ const ContractInformationPanel = () => {
 
       <p>
         <strong>
-          <a href={`${explorer?.baseUrl}/address/${contract?.name}`}>
+          <a href={`https://${explorer?.baseUrl}/address/${contract?.name}`}>
             View on {explorer?.explorerName}
           </a>
         </strong>
