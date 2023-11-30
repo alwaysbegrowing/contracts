@@ -73,7 +73,7 @@ const ContractsPanel = ({ chains }: { chains: any }) => {
                   alt="chain"
                   src={`https://icons.llamao.fi/icons/chains/rsz_${chainIds[chain]}.jpg`}
                 />
-                {chainIds[chain]}
+                {chainIds[chain] || chain}
               </Space>
             </Option>
           ))}

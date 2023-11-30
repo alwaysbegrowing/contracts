@@ -6,7 +6,7 @@ import AnalyticsAndInsightsPanel from "../components/AnalyticsAndInsightsPanel";
 import { namehash } from "viem";
 import { useRecoilState } from "recoil";
 import { searchTermState } from "../components/Atoms";
-import { Alert, Col, Collapse, Row, Space, Typography } from "antd";
+import { Alert, Avatar, Col, Collapse, Row, Space, Typography } from "antd";
 import { chainIds } from "./chainIds";
 import ErinTweet from "./ErinTweet";
 import { usePublicClient } from "wagmi";
@@ -46,7 +46,10 @@ export default function ContractsDisplay() {
             <Space direction="vertical" style={{ width: "100%" }}>
               <Title level={3}>Interested how this works?</Title>
               <Collapse>
-                <Panel key="wah" header="First, get the address (hash) to lookup">
+                <Panel
+                  key="wah"
+                  header="First, get the address (hash) to lookup"
+                >
                   <Space direction="vertical">
                     <Text>
                       This takes the ENS domain {searchValue} and converts it to
@@ -96,12 +99,14 @@ export default function ContractsDisplay() {
                     <Space>
                       {texts?.map((text: string) => (
                         <Space key={text}>
-                          <img
-                            width={16}
-                            alt="chain"
-                            src={`https://icons.llamao.fi/icons/chains/rsz_${chainIds[text]}.jpg`}
-                          />
-                          {chainIds[text].slice(0, 4)}
+                          {chainIds[text] && (
+                            <img
+                              width={16}
+                              alt="chain"
+                              src={`https://icons.llamao.fi/icons/chains/rsz_${chainIds[text]}.jpg`}
+                            />
+                          )}
+                          {chainIds[text]?.slice(0, 4) || text}
                         </Space>
                       ))}
                     </Space>
