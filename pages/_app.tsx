@@ -8,6 +8,7 @@ import React from "react";
 import { RecoilRoot } from "recoil";
 import Head from "next/head";
 import Meta from "../components/Meta";
+import { Analytics } from "dappling-analytics/react";
 
 const config = createConfig({
   autoConnect: true,
@@ -28,7 +29,7 @@ function MyApp({ Component, pageProps }: { Component: any; pageProps: any }) {
           <title>dAppling Tools</title>
         </Head>
         <Meta />
-
+        <Analytics />
         <CustomLayout>
           <Component {...pageProps} />
         </CustomLayout>
