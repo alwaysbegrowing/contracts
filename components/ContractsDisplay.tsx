@@ -60,7 +60,7 @@ export default function ContractsDisplay() {
                   </Space>
                 </Panel>
                 <Panel key="wah2" header="Next, get the records">
-                  <Space direction="vertical">
+                  <Space direction="vertical" style={{ width: "100%" }}>
                     <Text>
                       Find ENS&apos;s{" "}
                       <a href="https://api.thegraph.com/subgraphs/name/ensdomains/ens/graphql">
@@ -96,20 +96,22 @@ export default function ContractsDisplay() {
                     <Text>The result is the text record keys</Text>
                     <Text code>{JSON.stringify(texts, null, 2)}</Text>
                     <Text>Which Uniswap made to be chain IDs.</Text>
-                    <Space>
+                    <Row gutter={{xs:4}}>
                       {texts?.map((text: string) => (
-                        <Space key={text}>
-                          {chainIds[text] && (
-                            <img
-                              width={16}
-                              alt="chain"
-                              src={`https://icons.llamao.fi/icons/chains/rsz_${chainIds[text]}.jpg`}
-                            />
-                          )}
-                          {chainIds[text]?.slice(0, 4) || text}
-                        </Space>
+                        <Col key={text} span={4}>
+                          <Space>
+                            {chainIds[text] && (
+                              <img
+                                width={16}
+                                alt="chain"
+                                src={`https://icons.llamao.fi/icons/chains/rsz_${chainIds[text]}.jpg`}
+                              />
+                            )}
+                            {chainIds[text]?.slice(0, 4) || text}
+                          </Space>
+                        </Col>
                       ))}
-                    </Space>
+                    </Row>
                   </Space>
                 </Panel>
                 <Panel key="wah3" header="Finally, resolve all records.">

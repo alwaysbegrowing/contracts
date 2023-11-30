@@ -81,4 +81,7 @@ export const chainIds: { [key: string]: string } = {
   "1666600000": "harmony",
   "11297108109": "palm",
   "836542336838601": "curio",
+  "8453": "base",
+  "59144": "linea",
+  "534352":"scroll"
 } as const;

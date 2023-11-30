@@ -18,6 +18,7 @@ const ContractInformationPanel = () => {
           params: [contract, "latest"],
         }),
       });
+      if(!response.ok) return console.log(response);
       const json = await response.json();
       setContractTransactionCount(json?.result);
     };
